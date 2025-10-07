@@ -16,8 +16,8 @@ public class Main {
         fileReader(data);
 
         List<Customer> highValueCustomers = data.stream()
-                .filter(customer -> customer.getOrder_value() >= 1000)
-                .sorted(Comparator.comparingInt(Customer::getOrder_value).reversed())
+                .filter(customer -> customer.getOrderValue() >= 1000)
+                .sorted(Comparator.comparingInt(Customer::getOrderValue).reversed())
                 .limit(10)
                 .toList();
 
