@@ -35,4 +35,9 @@ public class Customer {
     public void setOrder_value(int order_value) {
         this.order_value = order_value;
     }
+
+    @Override
+    public String toString() {
+        return name + " (" + city + "): amount " + order_value;
+    }
 }
