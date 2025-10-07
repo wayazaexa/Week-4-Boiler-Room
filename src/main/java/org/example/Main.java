@@ -1,8 +1,37 @@
 package org.example;
 
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
+        List<Customer> data = new ArrayList<>();
+        fileReader(data);
+    }
 
+    private static void fileReader(List<Customer> data) {
+        Path filepath = Paths.get("data/boilerroom.csv");
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath.toAbsolutePath().toString()))) {
+            String line;
+            boolean firstRow = true;
+
+            while ((line = br.readLine()) != null) {
+                if (firstRow) {
+                    firstRow = false;
+                    continue;
+                }
+                String[] values = line.split(",");
+                data.add(new Customer(values[0], values[1], Integer.parseInt(values[2])));
+            }
+        }
+        catch (IOException | NumberFormatException e) {
+            System.out.println("Exception: " + e);
+        }
     }
 }
