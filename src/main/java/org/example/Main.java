@@ -7,12 +7,21 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         List<Customer> data = new ArrayList<>();
         fileReader(data);
+
+        List<Customer> highValueCustomers = data.stream()
+                .filter(customer -> customer.getOrder_value() >= 1000)
+                .sorted(Comparator.comparingInt(Customer::getOrder_value).reversed())
+                .limit(10)
+                .toList();
+
+        highValueCustomers.forEach(System.out::println);
     }
 
     private static void fileReader(List<Customer> data) {
