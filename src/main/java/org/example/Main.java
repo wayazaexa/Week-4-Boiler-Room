@@ -1,9 +1,7 @@
 package org.example;
 
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -22,6 +20,7 @@ public class Main {
                 .toList();
 
         highValueCustomers.forEach(System.out::println);
+        fileWriter(data);
     }
 
     private static void fileReader(List<Customer> data) {
@@ -40,6 +39,18 @@ public class Main {
             }
         }
         catch (IOException | NumberFormatException e) {
+            System.out.println("Exception: " + e);
+        }
+    }
+
+    private static void fileWriter(List<Customer> data) {
+        Path filepath = Paths.get("data/report.txt");
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath.toAbsolutePath().toString()))) {
+            for (Customer c : data) {
+                bw.write(c + "\n");
+            }
+        }
+        catch (IOException e) {
             System.out.println("Exception: " + e);
         }
     }
